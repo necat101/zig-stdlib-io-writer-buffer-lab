@@ -1,20 +1,11 @@
-// c39_article_snippet_compile_observer – article snippet compile observer – version-sensitive
-// Category: compile_observation
-// HN marker: bug_vs_interface
-// Article marker: io_interface_context
-// Buffer class: n/a
-// This is a correctness lab stub – real stdlib API usage is version-sensitive.
-// Local Zig compiler validation required – do not assume API stability.
-//
-// No network, no TLS, no external payloads, no fuzzing.
-// No global safety claims – local compiler truth only.
-
 const std = @import("std");
 
 pub fn main() !void {
-    // Case: c39_article_snippet_compile_observer
-    // Purpose: article snippet compile observer – version-sensitive
-    // If std.Io.Reader/Writer API shape has changed in your local Zig version,
-    // this file may need updating – that is expected and is recorded as api_changed.
-    _ = std;
+    // Try to use std.Io.Reader.fixed and stream – basic article API shape
+    var r = std.Io.Reader.fixed("test");
+    var out_buf: [16]u8 = undefined;
+    var w = std.Io.Writer.fixed(&out_buf);
+    _ = try r.stream(&w, .unlimited);
+    try w.flush();
+    std.debug.print("CASE c39_article_snippet_compile_observer PASS\n", .{});
 }

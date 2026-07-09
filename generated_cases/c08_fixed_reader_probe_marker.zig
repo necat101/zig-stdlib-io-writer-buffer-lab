@@ -1,20 +1,9 @@
-// c08_fixed_reader_probe_marker – fixed reader probe
-// Category: api_shape
-// HN marker: api_contract
-// Article marker: reader_context
-// Buffer class: n/a
-// This is a correctness lab stub – real stdlib API usage is version-sensitive.
-// Local Zig compiler validation required – do not assume API stability.
-//
-// No network, no TLS, no external payloads, no fuzzing.
-// No global safety claims – local compiler truth only.
-
 const std = @import("std");
 
 pub fn main() !void {
-    // Case: c08_fixed_reader_probe_marker
-    // Purpose: fixed reader probe
-    // If std.Io.Reader/Writer API shape has changed in your local Zig version,
-    // this file may need updating – that is expected and is recorded as api_changed.
-    _ = std;
+    const data = "hello zig";
+    var r = std.Io.Reader.fixed(data);
+    var tmp: [5]u8 = undefined;
+    const n = try r.read(&tmp);
+    std.debug.print("CASE c08_fixed_reader_probe_marker PASS n={}\n", .{n});
 }

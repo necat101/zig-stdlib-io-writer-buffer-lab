@@ -1,20 +1,16 @@
-// c21_zstd_small_buffer_context_marker – zstd with small output buffer – article context
-// Category: zstd_context
-// HN marker: bug_vs_interface
-// Article marker: zstd_context
-// Buffer class: small
-// This is a correctness lab stub – real stdlib API usage is version-sensitive.
-// Local Zig compiler validation required – do not assume API stability.
-//
-// No network, no TLS, no external payloads, no fuzzing.
-// No global safety claims – local compiler truth only.
-
 const std = @import("std");
 
 pub fn main() !void {
-    // Case: c21_zstd_small_buffer_context_marker
-    // Purpose: zstd with small output buffer – article context
-    // If std.Io.Reader/Writer API shape has changed in your local Zig version,
-    // this file may need updating – that is expected and is recorded as api_changed.
-    _ = std;
+    // Article context: zstd Decompress with small output buffer
+    // We do NOT trigger the actual bug/infinite loop – just probe API presence
+    // and document that buffer-size requirements exist
+    const has_zstd = @hasDecl(std.compress, "zstd");
+    if (!has_zstd) {
+        std.debug.print("CASE c21_zstd_small_buffer_context_marker SKIP no_zstd\n", .{});
+        return;
+    }
+    // Check Decompress.Options has window_len field (this is where buffer size requirement lives)
+    const Opt = std.compress.zstd.Decompress.Options;
+    const has_window_len = @hasField(Opt, "window_len");
+    std.debug.print("CASE c21_zstd_small_buffer_context_marker PASS has_window_len={} note=small_output_buffer_is_article_context_no_crash_tested\n", .{has_window_len});
 }

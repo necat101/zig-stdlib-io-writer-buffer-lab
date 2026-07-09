@@ -1,20 +1,10 @@
-// c20_zstd_decompress_api_probe_marker – std.compress.zstd.Decompress API probe
-// Category: zstd_context
-// HN marker: bug_vs_interface
-// Article marker: zstd_context
-// Buffer class: n/a
-// This is a correctness lab stub – real stdlib API usage is version-sensitive.
-// Local Zig compiler validation required – do not assume API stability.
-//
-// No network, no TLS, no external payloads, no fuzzing.
-// No global safety claims – local compiler truth only.
-
 const std = @import("std");
 
 pub fn main() !void {
-    // Case: c20_zstd_decompress_api_probe_marker
-    // Purpose: std.compress.zstd.Decompress API probe
-    // If std.Io.Reader/Writer API shape has changed in your local Zig version,
-    // this file may need updating – that is expected and is recorded as api_changed.
-    _ = std;
+    const has_zstd = @hasDecl(std.compress, "zstd");
+    std.debug.print("CASE c20_zstd_decompress_api_probe_marker PASS has_zstd={}\n", .{has_zstd});
+    if (has_zstd) {
+        const Decompress = std.compress.zstd.Decompress;
+        _ = Decompress;
+    }
 }
