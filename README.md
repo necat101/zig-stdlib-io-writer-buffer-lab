@@ -64,10 +64,24 @@ zig_version_probe, zig_env_probe, stdlib_source_probe, compile_only_debug, compi
 
 ## Running
 
+Quick start:
+
+**Linux / macOS:**
+```bash
+./run.sh
+```
+
+**Windows:**
+```cmd
+run.bat
+```
+
+Manual:
 ```bash
 python3 -m py_compile generate_cases.py run_lab.py
 python3 generate_cases.py
-python3 run_lab.py
+python3 fix_zig_newlines.py generated_cases   # works around a known generator bug
+ZIG_BIN=/path/to/zig python3 run_lab.py
 ```
 
 `run_lab.py` records Python version, platform, Zig version, zig env, case/method counts, compile/run/skip counts, timeout counts, api_changed counts, HN-thread-access status, network/package-manager guards, and whether outputs were generated.
@@ -76,7 +90,9 @@ python3 run_lab.py
 
 See `RESULTS.md`, `results_rows.json`, `results_rows.csv`, `cases.json`.
 
-**Current run (2026-07-09):** Local Zig compiler was **NOT FOUND**. All compile/run rows are marked skip with `skip_reason=zig_not_found`. This is honest – no fake results. Generated Zig stubs, HN evidence, and API-shape markers are committed. Install a local Zig binary and re-run to get real compiler validation.
+**v2 (2026-07-09):** Generated Zig files are **real** stdlib API probes – `std.Io.Reader` / `Writer`, fixed buffers, `stream()`, `flush()`, buffer-size 0B/1B/64B/1KB/8KB, buffer-len type-contract check, `std.compress.zstd.Decompress` API probe, etc. – validated on Zig **0.16.0** locally.
+
+The initial v1 commit intentionally shipped with stub Zig files and `zig_not_found` skip results to prove honest skip handling – see git history (`e6b9df2` and earlier). v2 replaces stubs with real API probes.
 
 Do NOT claim Zig IO is safe/unsafe based on a skipped run. Do NOT claim the article is right/wrong without local compiler evidence.
 

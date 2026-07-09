@@ -40,27 +40,11 @@ python3 -m py_compile generate_cases.py run_lab.py
 echo "==> generate_cases.py"
 python3 generate_cases.py
 
-# Fix for Zig string literal newline bug in generated output
-# (generate_cases.py emits std.debug.print("...\\n", ...) correctly in theory,
-#  but if you hit "string literal contains invalid byte: '\n'" – run this)
-if grep -rq $'std.debug.print(".*\n' generated_cases/*.zig 2>/dev/null; then
-  echo "==> fixing stray newlines in generated Zig source (upstream generator bug)"
-  python3 - << 'PY'
-import pathlib
-for p in pathlib.Path('generated_cases').glob('*.zig'):
-    s = p.read_text()
-    out=[]; in_s=False; esc=False
-    for ch in s:
-        if ch == '"' and not esc:
-            in_s = not in_s; out.append(ch)
-        elif in_s and ch == '\n':
-            out.append('\\n')
-        else:
-            out.append(ch)
-        esc = (ch == '\\' and not esc)
-    s2 = ''.join(out)
-    if s != s2: p.write_text(s2); print(f"  fixed {p.name}")
-PY
+# Defensive: fix Zig string literal newline bug in generated output
+# (generate_cases.py has a known bug emitting real newlines inside "...")
+if [ -f fix_zig_newlines.py ]; then
+  echo "==> fix_zig_newlines.py generated_cases"
+  python3 fix_zig_newlines.py generated_cases || true
 fi
 
 echo "==> run_lab.py"
