@@ -1,0 +1,1166 @@
+[
+  {
+    "id": 45314281,
+    "by": "jmull",
+    "parent": 45313597,
+    "text": "I think there&#x27;s just a bug somewhere, not a general &quot;safety&quot; problem."
+  },
+  {
+    "id": 45313709,
+    "by": "tialaramex",
+    "parent": 45313597,
+    "text": "This seems like it&#x27;s maybe <i>unwise</i> but I can&#x27;t see how it&#x27;s <i>unsafe</i> ?"
+  },
+  {
+    "id": 45313726,
+    "by": "simjnd",
+    "parent": 45313597,
+    "text": "Andrew Kelley (Zig creator) replied to this on lobste.rs<p><a href=\"https:&#x2F;&#x2F;lobste.rs&#x2F;s&#x2F;js25k9&#x2F;is_zig_s_new_writer_unsafe#c_ftgczy\" rel=\"nofollow\">https:&#x2F;&#x2F;lobste.rs&#x2F;s&#x2F;js25k9&#x2F;is_zig_s_new_writer_unsafe#c_ftgc...</a>"
+  },
+  {
+    "id": 45317639,
+    "by": "preommr",
+    "parent": 45313597,
+    "text": "This feels like it should&#x27;ve been a git issue rather than a blog post.<p>No feedback from the author, no explaining what the code does at a level for people new to zig, no explanations of the fundamental problem (i.e. files, buffers, and flow of data, and how to write that as code) and how it relates to what zig is doing, no alternate solution for how zig or other languages might try to solve the problem.<p>I have a strong suspicion that people are upvoting this based on the title of &#x27;Zig&#x27; and &#x27;unsafe&#x27; instead of the actual substance of the post."
+  },
+  {
+    "id": 45314041,
+    "by": "didibus",
+    "parent": 45313597,
+    "text": "I&#x27;ve seen Zig popup a lot recently.<p>What&#x27;s the value proposition of Zig? It&#x27;s not immediately obvious to me.<p>Is it kind of like the Kotlin of C, going for a better syntax&#x2F;modern features but otherwise being very similar?"
+  },
+  {
+    "id": 45315024,
+    "by": "casey2",
+    "parent": 45313597,
+    "text": "Who cares? seems like something for the issue tracker no?"
+  },
+  {
+    "id": 45319299,
+    "by": "paulddraper",
+    "parent": 45317639,
+    "text": "This is very readable if you know the language, plus a modicum of file I&#x2F;O."
+  },
+  {
+    "id": 45313880,
+    "by": "kaoD",
+    "parent": 45313726,
+    "text": "What a terrible way to take constructive feedback.<p>Writing not one but two blog posts takes time and effort, moreso when it includes investigation and examples... the posts are not just low effort &quot;this is crap&quot; rants (and they even blame themselves, even though it&#x27;s clear from the posts that there are documentation&#x2F;discoverability issues).<p>What if the poster doesn&#x27;t feel knowledgeable enough to contribute code? (as shown by his first post title, &quot;I&#x27;m too dumb for...&quot;)<p>If that&#x27;s not collaborating I don&#x27;t know what it is..."
+  },
+  {
+    "id": 45313852,
+    "by": "flykespice",
+    "parent": 45313726,
+    "text": "&gt; Kinda wish the author would attempt to collaborate rather than write stuff like this and I\u2019m too dumb for Zig\u2019s new IO interface but, whatever, it\u2019s their blog so they can do what they want.<p>Damn, Andrew Kelley really come across as a dickhead when taking any bit of criticism about his language, often painting them as bad actors trying to sabotage the language.<p>This isn&#x27;t the first time he repeats this behavior.<p>EDIT:\n<a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;context?id=45119964\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;context?id=45119964</a>\n<a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;context?id=43579569\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;context?id=43579569</a>"
+  },
+  {
+    "id": 45314257,
+    "by": "ManBeardPc",
+    "parent": 45314041,
+    "text": "Like a modern C with lessons learned. Instead of macros it uses Zig itself to execute code at runtime (comptime). Custom allocators are the norm. No hidden control flow, everything is very explicit and easy to follow.<p>But it\u2019s not only the language itself, it is also the tooling around it. Single unit of compilation has some nice properties, allowing to support colorless async. Fast compile times. Being able to use existing C code easily and having optimization across language boundaries. Cross compilation out of the box. Generally caring for performance in all aspects.<p>So for me it is a better C, low-level but still approachable and not having so much cruft."
+  },
+  {
+    "id": 45321256,
+    "by": "wolvesechoes",
+    "parent": 45313726,
+    "text": "This subthread is peak FOSS world experience - 59 comments discussing who said what, why it was or wasn&#x27;t nice etc."
+  },
+  {
+    "id": 45323866,
+    "by": "bheadmaster",
+    "parent": 45317639,
+    "text": "I&#x27;ve never worked with Zig in my life, and I don&#x27;t have an opinion on it either. I&#x27;ve heard it&#x27;s neat. Despite that, this post was intuitively clear to me.<p>Zig&#x27;s *std.Io.Reader and Writer seem to be abstractions over many types, like Java&#x27;s interface class, Go&#x27;s interfaces, C++&#x27;s concepts or Rust&#x27;s traits.\nHowever, it seems that abstraction itself is leaky - in that the length of the buffer is an implicit dependency which cannot be known from the type alone.<p>Admittedly, we don&#x27;t know if there&#x27;s a good explanation for the behavior - but then again, HN comments are as good a place to learn as any. Maybe someone will come up and explain."
+  },
+  {
+    "id": 45318170,
+    "by": "LAC-Tech",
+    "parent": 45314041,
+    "text": "The value proposition of Zig is it&#x27;s the most ergonomic way to do systems programming I&#x27;ve ever seen. First class allocators, arbitrary width integer types, top notch bindings to OS syscalls in the std lib without relying on libc, and you can translate C bindings to Zig at compile time, so no FFI layers for existing libraries.<p>They sometimes write about how they&#x27;re a general purpose language, but I strongly disagree. It&#x27;s unapologetically a systems programming language; that&#x27;s it&#x27;s entire focus."
+  },
+  {
+    "id": 45314303,
+    "by": "latch",
+    "parent": 45314281,
+    "text": "Then in the top-most snippet, what size should `buffer` be?"
+  },
+  {
+    "id": 45314625,
+    "by": "pron",
+    "parent": 45314041,
+    "text": "It&#x27;s a language that attempts to solve more of the biggest issues with low level programming than any other current low-level programming language. Of course, there is nowhere near a universal consensus on what the biggest issues are, but here&#x27;s what they are to me in order of importance (and I&#x27;m not alone):<p>1. Language complexity&#x2F;lack of expressivity. You want code, as much as possible, to clearly express the algorithm at the level of detail needed at the language&#x27;s domain, no more and no less. The level of detail in low-level languages is different from high-level languages because, for example, you want to see exactly where and when memory is allocated&#x2F;freed. Both C and C++ fail at this for opposite reasons. C is often not expressive enough to express an algorithm clearly (at least not without the use of macros), and C++ is often too implicit, hiding important details that are then easy to miss [1]. These problems may affect program correctness.<p>2. Lack of spatial memory safety, which is the cause of the #2 and #6 most dangerous software weaknesses (<a href=\"https:&#x2F;&#x2F;cwe.mitre.org&#x2F;top25&#x2F;archive&#x2F;2024&#x2F;2024_cwe_top25.html\" rel=\"nofollow\">https:&#x2F;&#x2F;cwe.mitre.org&#x2F;top25&#x2F;archive&#x2F;2024&#x2F;2024_cwe_top25.html</a>). Unlike spatial memory safety, Zig doesn&#x27;t guarantee the lack of temporal memory safety. This would have been very nice to have, but it isn&#x27;t as important and not worth compromising on the other top points.<p>3. Slow build times, which may also affect correctness by slowing down the test cycle.<p>I don&#x27;t find Zig similar to C or C++ at all (certainly not as similar as Rust is to C++). If anything, Zig&#x27;s risk is in being a more revolutionary step than an evolutionary one.<p>---<p>[1]: In the late eighties&#x2F;early nineties (when I first learned C++), when we thought it might be a good idea for a language to be both low-level and high-level, C++&#x27;s notion of &quot;zero-cost abstractions&quot; seemed very interesting and even promising (I don&#x27;t recall them being given that name then, but the problem - or advantage - was right there at the beginning; e.g. whether a call uses static or dynamic dispatch is an algorithmic detail that may be of interest in low-level programming, as well as whether a destructor is called, possibly through dynamic dispatch). Now that notion feels an outdated vestige of a bygone era. I&#x27;m aware there are still C++ programmers who still believe in writing high level applications in low-level languages and still believe in zero cost abstractions, but I think the industry has clearly been going the other way, and there&#x27;s no indication it may be changing direction or may have any reason to do so."
+  },
+  {
+    "id": 45314616,
+    "by": "bmacho",
+    "parent": 45314041,
+    "text": "Maybe read <a href=\"https:&#x2F;&#x2F;ziglang.org&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;ziglang.org&#x2F;</a> ? They list the goals:<p><pre><code>  Zig is a general-purpose programming language and toolchain for maintaining robust, optimal and reusable software.\n</code></pre>\nand how they are trying to achieve that: simple language, and &#x27;comptime&#x27; for metaprogramming (a more or less new approach).<p><pre><code>  &gt; Is it kind of like the Kotlin of C, going for a better syntax&#x2F;modern features but otherwise being very similar?\n</code></pre>\nNo, not really."
+  },
+  {
+    "id": 45314132,
+    "by": "Cloudef",
+    "parent": 45314041,
+    "text": "For me its simply better C, and the stdlib is pretty well designed overall"
+  },
+  {
+    "id": 45314094,
+    "by": "epcoa",
+    "parent": 45314041,
+    "text": "Zig\u2019s undefined behavior story is not nearly as much of a minefield for one. That should be enough really. If you think the CPP is good enough for metaprogramming, I don\u2019t know what to tell you either."
+  },
+  {
+    "id": 45314084,
+    "by": "logicchains",
+    "parent": 45314041,
+    "text": "It&#x27;s a powerful alternative to Rust and C++ for writing ultra low latency code when safety isn&#x27;t important, like games or HFT. Its standard library and ecosystem have excellent support for passing around allocators and no hidden dynamic allocation (every function that allocates takes an allocator as a parameter), which makes it much harder to hit the latency pitfalls common to Rust and C++. It also encourages the latency-optimal approach of using local bump-a-pointer arena allocators where possible rather than the slow global allocator. And finally, the superior metaprogramming support makes it more convenient to use high performance techniques like struct-of-arrays."
+  },
+  {
+    "id": 45317480,
+    "by": "epolanski",
+    "parent": 45314041,
+    "text": "Simpler, modern C with better tooling and less undefined behavior."
+  },
+  {
+    "id": 45320383,
+    "by": "pjmlp",
+    "parent": 45314041,
+    "text": "It is basically Modula-2 (in features) revamped with C syntax, and with compile time execution support.<p>It is the route of what would have happened if Modula-2 or Object Pascal had won the industry mindshare instead of C.<p>I think it comes too late, we know better nowadays, so it doesn&#x27;t really offer anything new."
+  },
+  {
+    "id": 45315289,
+    "by": "giancarlostoro",
+    "parent": 45314041,
+    "text": "Check out Carbon, its the Kotlin of C++ ;)<p>I am not a C++ guy, but when Carbon is finally stable and hits the mainstream, I will definitely start trying out Carbon.<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;carbon-language&#x2F;carbon-lang\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;carbon-language&#x2F;carbon-lang</a>"
+  },
+  {
+    "id": 45315839,
+    "by": "Galanwe",
+    "parent": 45314041,
+    "text": "The way I see it, it&#x27;s for people who want a more modern C, but not C++.<p>There&#x27;s not much languages in that space, essentially C3 and Zig, but the former is much less advanced IMHO (also in terms of tooling)."
+  },
+  {
+    "id": 45314381,
+    "by": "tliltocatl",
+    "parent": 45314041,
+    "text": "&gt; Is it kind of like the Kotlin of C, going for a better syntax&#x2F;modern features but otherwise being very similar?<p>For me that sounds like a rather good value proposition. Too bad Zig never got the stackless corountine part they promised in the start."
+  },
+  {
+    "id": 45317197,
+    "by": "o11c",
+    "parent": 45314041,
+    "text": "Zig&#x27;s pointless choice to avoid global constructors - something all platforms have supported for several decades by now - makes I&#x2F;O extremely unwieldy. That alone prevents it from being a viable mainstream language.<p>There is a lot of useful technical work and ideas in it though."
+  },
+  {
+    "id": 45314197,
+    "by": "ViewTrick1002",
+    "parent": 45314041,
+    "text": "Being the anti Rust alternative for people who has spent years&#x2F;decades accumulating weird knowledge about the inner workings of C and&#x2F;or C++ and maintain that being able to shoot your feet off at a distance when doing the wrong incantation is a critical feature to have.<p>I\u2019m ranting but based the Rust&#x2F;Zig discussions here on HN and the number of segfault issues in the Bun repo there is a core of truth.<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;oven-sh&#x2F;bun&#x2F;issues?q=Segfault\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;oven-sh&#x2F;bun&#x2F;issues?q=Segfault</a>"
+  },
+  {
+    "id": 45315488,
+    "by": "hu3",
+    "parent": 45315024,
+    "text": "The blog author has a history of posting clickbait&#x27;ish criticism about Zig."
+  },
+  {
+    "id": 45316045,
+    "by": "bastawhiz",
+    "parent": 45313852,
+    "text": "&gt; any bit of criticism about his language<p>I&#x27;m not even sure that it&#x27;s criticism. I read it as a genuine open question.<p>At least in my experience, asking questions like this through GitHub issues or a mailing list are met with negativity. I don&#x27;t want to post through a channel where I&#x27;ll get a snide, terse response from a maintainer. I&#x27;d much rather post to my blog audience, who I find to be generally knowledgeable and friendly enough to already be following me. And if I found an answer, I&#x27;d post about it and explain what I learned in the process, linking from the existing post.<p>In a lot of ways, I think Andrew&#x27;s response is exactly the sort of flavor of reply that I would have expected no matter what channel the question had been posed through, and that&#x27;s exactly why I wouldn&#x27;t have gone through those channels if I was the author. His reply didn&#x27;t answer the question aside from implying it&#x27;s maybe an issue, nor did it invite feedback."
+  },
+  {
+    "id": 45313953,
+    "by": "koiueo",
+    "parent": 45313880,
+    "text": "I&#x27;ve read it completely differently.<p>The response IMO is constructive and invites the blog post author for further discussion."
+  },
+  {
+    "id": 45314001,
+    "by": null,
+    "parent": 45313880,
+    "text": ""
+  },
+  {
+    "id": 45313954,
+    "by": "zamadatix",
+    "parent": 45313880,
+    "text": "That&#x27;s not the read I got from Andrew&#x27;s comment, or the situation. If the poster doesn&#x27;t feel knowledgeable&#x2F;able enough to collaborate in the community discussions (like the issue links, which don&#x27;t require contributing code) then doing individual blog posts instead is only going to give even worse results for everyone."
+  },
+  {
+    "id": 45313879,
+    "by": "tristan957",
+    "parent": 45313852,
+    "text": "That was not my takeaway from his comment at all."
+  },
+  {
+    "id": 45314120,
+    "by": "Intermernet",
+    "parent": 45313880,
+    "text": "Collaborating would be contacting the Zig team through one of the many channels available and asking questions, offering suggestions etc. Posting critical blog posts without doing this first is counter-productive, and can even be seen as self promotion. After all, we&#x27;re now discussing the blog posts, and not the actual issues. Would this have happened if the author had just sent an email to the mailing list or asked on Github?"
+  },
+  {
+    "id": 45313993,
+    "by": "nhanb",
+    "parent": 45313852,
+    "text": "Idk, Andrew&#x27;s comment seems fair enough to me."
+  },
+  {
+    "id": 45313882,
+    "by": "meisel",
+    "parent": 45313852,
+    "text": "Yeah, and his behavior in this LLVM discourse thread made me not want to ever try Zig: <a href=\"https:&#x2F;&#x2F;discourse.llvm.org&#x2F;t&#x2F;rfc-libc-taking-a-dependency-on-boost-math-for-the-c-17-math-special-functions&#x2F;87479&#x2F;4\" rel=\"nofollow\">https:&#x2F;&#x2F;discourse.llvm.org&#x2F;t&#x2F;rfc-libc-taking-a-dependency-on...</a>"
+  },
+  {
+    "id": 45315183,
+    "by": "ksec",
+    "parent": 45313880,
+    "text": "Except, if you click on the Openmymind.net link on HN to show all its submission, it has been Zig focus critics on different things, and may be rants."
+  },
+  {
+    "id": 45314655,
+    "by": "Validark",
+    "parent": 45313852,
+    "text": "Andrew may be expressing frustration or dismay or annoyance in that statement, but he is not definitively &quot;painting them as bad actors trying to sabotage the language&quot;. You are HEAVILY reading into his statement.<p>He only said he wishes the author would have taken a different approach. So what? Why does everyone have to jump in and start psychologizing or essentializing Andrew based on one paragraph?<p>Why does one paragraph have to say so much about who he is as a person? Even if it did piss him off for a few hours, so what? He&#x27;s not allowed to wish someone took a different approach?<p>I tend to think Andrew Kelley is a great guy, not just technically but as a person. And I think that because I&#x27;ve listened to him talk for dozens of hours. I can guarantee you that that one sentence he wrote is not the beginning of a character assassination campaign against the author of this blog.<p>He made Zig because he wanted to put something good into the world and improve the state of software. How about we include that in our analysis of Andrew&#x27;s character? I&#x27;ll leave it to the reader to consider whether the multi-year full time dedication to Zig should be weighed more heavily than a personal feeling he had for two minutes that he expressed respectfully without attacking anyone&#x27;s character."
+  },
+  {
+    "id": 45317554,
+    "by": "epolanski",
+    "parent": 45313852,
+    "text": "Nothing wrong&#x2F;strange in those posts.<p>In any case I&#x27;ve seen how communities treat the authors of important projects that touch their livelihood or habits to be unsurprised an author may lose it at times."
+  },
+  {
+    "id": 45314697,
+    "by": "jmull",
+    "parent": 45313852,
+    "text": "I know what you mean, but name-calling has got to be one of the worst ways to call for some decorum. It just leads to flame wars. (Be the change you want to see, and all that.)"
+  },
+  {
+    "id": 45314485,
+    "by": "zahlman",
+    "parent": 45314257,
+    "text": "&gt; Instead of macros it uses Zig itself to execute code at runtime (comptime).<p>Nice. FWIW, I have a vague PL design in my head that does this despite being a much higher-level language. (For that matter, I think of my idea much as &quot;like a modern Python with lessons learned&quot;.) Point being I definitely think this is a good idea.<p>To my understanding, the things actually <i>called</i> &quot;macros&quot; in Lisp also do this.<p>&gt; Custom allocators are the norm.<p>On the other hand, this doesn&#x27;t sound to me like an upside. Of course it&#x27;s fine and well if it&#x27;s easy to do this. But hopefully you&#x27;d prefer not to have to... ?<p>&gt; No hidden control flow, everything is very explicit and easy to follow.<p>What sort of hidden control flow do you see in C? (Are modern code bases using setjmp&#x2F;longjmp in new code?) I would have thought that C++ is where that really started, via exceptions. But I also don&#x27;t think most programmers see that as problematic for understanding the code.<p>&gt; Single unit of compilation has some nice properties, allowing to support colorless async.<p>Would appreciate some explanation of the theory here. Though it does occur to me that the languages I can easily think of with &quot;coloured&quot; async also don&#x27;t exactly statically link everything all the time.<p>Also, how does all of this compare to Rust, in your view?"
+  },
+  {
+    "id": 45315104,
+    "by": "metaltyphoon",
+    "parent": 45314257,
+    "text": "&gt; Like a modern C with lessons learned.<p>Yet no string types. So lessons not so well learned. Zig does remove many warts in C."
+  },
+  {
+    "id": 45317712,
+    "by": "kiitos",
+    "parent": 45313852,
+    "text": "yup, he&#x27;s also got a consistent history of aggressively disparaging and misinformed comments about go, fwiw"
+  },
+  {
+    "id": 45314159,
+    "by": "travisgriggs",
+    "parent": 45313852,
+    "text": "Interesting. I liked the candid honesty."
+  },
+  {
+    "id": 45314386,
+    "by": "adgjlsfhk1",
+    "parent": 45314257,
+    "text": "To be clear, the problem with C isn&#x27;t macros, but text based macros. Syntax based macros are really good (as shown by Lisp and friends)"
+  },
+  {
+    "id": 45315067,
+    "by": "vlovich123",
+    "parent": 45314257,
+    "text": "I\u2019m not sold that they\u2019ve actually solved the coloring problem vs given it a different syntax."
+  },
+  {
+    "id": 45314500,
+    "by": "jmull",
+    "parent": 45314303,
+    "text": "It shouldn&#x27;t matter.<p>Decompress&#x27;s Reader shouldn&#x27;t depend on the size of the buffer of the writer passed in to its &quot;stream&quot; implementation.<p>So that&#x27;s a bug in the Decompress Reader implementation.<p>The article confuses a bug in a specific Reader implementation with a problem with the Writer interface generally.<p>(If a reader really wants to impose some chunking limitation for some reason, then it should return an error in the invalid case, not go into an infinite loop.)"
+  },
+  {
+    "id": 45314789,
+    "by": null,
+    "parent": 45313852,
+    "text": ""
+  },
+  {
+    "id": 45316273,
+    "by": "MangoToupe",
+    "parent": 45314257,
+    "text": "I&#x27;ve seen the custom allocators mentioned many times as central to the value proposition. Do the allocators shipped with the standard library compose the system allocator, or are they completely distinct from the *alloc family shipped as part of libc?"
+  },
+  {
+    "id": 45315322,
+    "by": "rollcat",
+    "parent": 45314625,
+    "text": "&gt; &quot;zero-cost abstractions&quot;<p>I believe that in modern times, this term refers to stuff like: transparent conversion to a low-level representation (e.g. a bit-packed integer) from a high-level, statically checked datatype - e.g. a tagged union with exhaustive pattern matching, aka ADT. This is also something C++ etc lack."
+  },
+  {
+    "id": 45314433,
+    "by": "wyager",
+    "parent": 45314257,
+    "text": "&gt; with lessons learned<p>A very small subset of possible lessons that could have been learned..."
+  },
+  {
+    "id": 45320407,
+    "by": "pjmlp",
+    "parent": 45314625,
+    "text": "We did not though that due to C++, we already though that with languages like PL&#x2F;I, Mesa, Cedar, Modula-2, Object Pascal, Ada, among others."
+  },
+  {
+    "id": 45315669,
+    "by": "lossolo",
+    "parent": 45314084,
+    "text": "Your comment was corrected or written by ChatGPT, right? It&#x27;s super interesting that I can recognize these things now. The specific usage of punctuation, certain words and sentence construction."
+  },
+  {
+    "id": 45320415,
+    "by": "pjmlp",
+    "parent": 45315289,
+    "text": "Everyone talking about Carbon has to remember it is foremost for Google&#x27;s internal migration purposes."
+  },
+  {
+    "id": 45318173,
+    "by": "LAC-Tech",
+    "parent": 45314616,
+    "text": "I don&#x27;t think it&#x27;s a general-purpose programming language at all.<p>Great systems language though."
+  },
+  {
+    "id": 45318441,
+    "by": "scuff3d",
+    "parent": 45315839,
+    "text": "Odin"
+  },
+  {
+    "id": 45314657,
+    "by": "speed_spread",
+    "parent": 45314084,
+    "text": "Safety not important in HFT? You&#x27;d better make sure those precious microseconds buy you enough to make up for when things go awry.<p>Also, modern online gaming with microtransactions isn&#x27;t something I&#x27;d entrust to &quot;hold my beer&quot; languages and gaming industry development practices."
+  },
+  {
+    "id": 45314375,
+    "by": "pclmulqdq",
+    "parent": 45314084,
+    "text": "Rusty rust and C++-y C++ are both often slower than hand-rolled C for a given function, and zig is intended to be a better way to hand-roll some C.<p>C as a language is obsessed with the fact that C runs everywhere. Even on a DSP with a 24-bit char and a 24-bit int. If you take out those complexities and you add 40 years of lessons on language design, you can make something a lot simpler."
+  },
+  {
+    "id": 45315206,
+    "by": "Validark",
+    "parent": 45314084,
+    "text": "&quot;Safety&quot; is always important, and you can write safe software in Zig."
+  },
+  {
+    "id": 45332418,
+    "by": "user____name",
+    "parent": 45315839,
+    "text": "C2 is still in development [0] and in my opinion sticks most closely to C in spirit. It seems like the best way to modernize a C project incrementally because it sticks most closely.<p>I haven&#x27;t tried any of these languages though, I genuinely enjoy writing dumb-as-bricks C despite all the downsides. Call it Stockholm Syndrome or whatever.<p>[0] <a href=\"http:&#x2F;&#x2F;c2lang.org&#x2F;site&#x2F;introduction&#x2F;evolution&#x2F;\" rel=\"nofollow\">http:&#x2F;&#x2F;c2lang.org&#x2F;site&#x2F;introduction&#x2F;evolution&#x2F;</a>"
+  },
+  {
+    "id": 45314336,
+    "by": "latchkey",
+    "parent": 45314197,
+    "text": "To be fair, nodejs has 36 open, 474 closed:<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;nodejs&#x2F;node&#x2F;issues?q=Segfault\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;nodejs&#x2F;node&#x2F;issues?q=Segfault</a>"
+  },
+  {
+    "id": 45317461,
+    "by": null,
+    "parent": 45317197,
+    "text": ""
+  },
+  {
+    "id": 45315157,
+    "by": "pron",
+    "parent": 45314197,
+    "text": "Or Rust being the anti Zig alternative for people who have spent years&#x2F;decades accumulating weird knowledge about the finer details of type systems and maintain that not being able to express an algorithm, or review one, without consulting a language lawyer (or becoming one) is a critical feature to have and that build times don&#x27;t matter.<p>The point is that all languages, including those two, make very clear and sometimes significant tradeoffs that may be more or less appropriate in different circumstances or for different people, and, at least so far, no consensus about the &quot;right&quot; tradeoff has emerged."
+  },
+  {
+    "id": 45318431,
+    "by": "scuff3d",
+    "parent": 45315488,
+    "text": "Right, that huge series he wrote as an introduction to Zig and all the articles about specific Zig features were super mean and clickbaity..."
+  },
+  {
+    "id": 45314767,
+    "by": "justinhj",
+    "parent": 45314197,
+    "text": "There is plenty of room for both languages to exist. Engineering is all about trade offs. \nRust has some big pluses but it&#x27;s not suitable for every application."
+  },
+  {
+    "id": 45319157,
+    "by": "nhanb",
+    "parent": 45315488,
+    "text": "That&#x27;s gross misrepresentation. He wrote _lots_ of helpful educational articles on zig that painted it in a good light. I would know because I learned a great deal from his posts when I started with zig. Recently he posted a grand total of 2 articles expressing his confusion&#x2F;skepticism of new zig features, that&#x27;s it."
+  },
+  {
+    "id": 45314088,
+    "by": "wolttam",
+    "parent": 45313953,
+    "text": "&quot;but whatever&quot; are two of the most dismissive words when put together. &quot;I see what you&#x27;ve written, but whatever.&quot;"
+  },
+  {
+    "id": 45314015,
+    "by": null,
+    "parent": 45313954,
+    "text": ""
+  },
+  {
+    "id": 45314359,
+    "by": "ViewTrick1002",
+    "parent": 45314120,
+    "text": "This reads to me like an attempt at polishing a pig.<p>Just hide all issues people using your project stumble upon in internal mailing lists and project a polished facade.<p>This reads like an issue anyone can stumble upon with the answer being \u201dyou\u2019re holding it wrong\u201d.<p>I want to find that from a quick search rather than wading through endless internal discussions."
+  },
+  {
+    "id": 45314076,
+    "by": "9question1",
+    "parent": 45313953,
+    "text": "I think it&#x27;s likely that both the blog poster and the maintainer are being perceived as more negative in tone than the intent &#x2F; reality. They both included disclaimers &quot;I must be doing something wrong. And if I am, I&#x27;m sorry.&quot; and &quot;whatever, it\u2019s their blog so they can do what they want.&quot; They&#x27;re also both giving critical feedback &quot;But, if I&#x27;m not, this is a problem right?&quot; &quot;Kinda wish the author would attempt to collaborate rather than write stuff like this&quot; but in both cases the criticism is extremely mildly worded compared to most toxic online discourse. This seems... great? Isn&#x27;t it good we&#x27;re able to disagree so politely? It&#x27;s not toxic to have a disagreement or to give critical  feedback. We don&#x27;t need to all pretend to agree with each other all the time or be happy with each other in order to have a civil discourse."
+  },
+  {
+    "id": 45313912,
+    "by": "HextenAndy",
+    "parent": 45313879,
+    "text": "Quite. I don&#x27;t think it&#x27;s unreasonable to expect someone to check the issue tracker before blogging and I don&#x27;t think Andrew&#x27;s response was at all problematic."
+  },
+  {
+    "id": 45314014,
+    "by": "loeg",
+    "parent": 45313954,
+    "text": "I think it&#x27;s a reasonable response aside from the last sentence aside."
+  },
+  {
+    "id": 45314044,
+    "by": "colonwqbang",
+    "parent": 45313954,
+    "text": "Author is posting honest and respectful critique of Zig features on their blog. That is a valid way of collaborating in the community discussion. The project github isn&#x27;t the only place where discussion is allowed to take place."
+  },
+  {
+    "id": 45314012,
+    "by": "kaoD",
+    "parent": 45313954,
+    "text": "Might be cultural differences but, to me...<p>&gt; Kinda wish the author would attempt to collaborate rather than write stuff like this [...] but, whatever, it\u2019s their blog so they can do what they want.<p>...feels like passive aggression. In particular the &quot;stuff like this&quot; (like what?) and &quot;but, whatever&quot; felt very unnecessary and the whole &quot;I wish he&#x27;d collaborate on <i>my</i> terms&quot; is IMO uncalled for."
+  },
+  {
+    "id": 45314452,
+    "by": "ohdeargodno",
+    "parent": 45313954,
+    "text": "[dead]"
+  },
+  {
+    "id": 45314275,
+    "by": "latch",
+    "parent": 45313954,
+    "text": "Author here. I see it both ways.<p>Blog posts are collaboration (1). I did get the sense that Andrew doesn&#x27;t see it that way. (And for this post in particular, and writegate in general, I have been discussing it on the discord channel. I know that isn&#x27;t an official channel).<p>My reasons for not engaging more directly doesn&#x27;t have anything to do with my confidence &#x2F; knowledge. They are personal. The linked issues, which I was aware of, are only tangentially related. And even if they specifically addressed my concerns, I don&#x27;t see how writing about it is anything but useful.<p>But I also got the sense that more direct collaboration is welcome and could be appreciated.<p>(1) - I&#x27;m the author of The Little MongoDB Book, The Little Redis Book, The Little Go Book, etc... I&#x27;ve always felt that the appeal of my writing is that I&#x27;m an average programmer. I run into the same problems, and struggle to understand the same things that many programmers do. When I write, I&#x27;m able to write from that perspective.<p>No matter how inclusive a community you have, there&#x27;ll always be some opinions and perspectives which get drowned out. It can be intimidating to say &quot;I don&#x27;t understand&quot;, or &quot;it&#x27;s too complicated&quot; or, god forbid, &quot;I think this is a bad design&quot;; especially when the experts are saying the opposite. I&#x27;m old enough that I see looking the fool as both a learning and mentoring experience. If saying &quot;io.Reader is too complicated&quot; saves someone else the embarrassment of saying it, or the shame of feeling it, or gives them a reference to express their own thoughts, I&#x27;m a happy blogger."
+  },
+  {
+    "id": 45314298,
+    "by": "asa400",
+    "parent": 45314120,
+    "text": "Nah, this is absurd. This guy or anybody else can write whatever they want, whenever they want, on their own blog. They are under zero obligation to create bug reports, file issues, check in on a chat channel, or contribute in any other way to <i>an open source software project</i> that does not employ them. Writing blog posts is a perfectly reasonable and normal community behavior.<p>The members of the Zig project are free to reach out to the author!<p>When you create a project in public people <i>will</i> write about it, tweet about it, complain about it, etc (if you\u2019re lucky!)."
+  },
+  {
+    "id": 45314170,
+    "by": "nromiun",
+    "parent": 45314120,
+    "text": "Why is this counter-productive and self promotion? Does that mean we should all stop writing programming related blog posts? And move all the discussions into GitHub issues only?"
+  },
+  {
+    "id": 45314471,
+    "by": "ohdeargodno",
+    "parent": 45314120,
+    "text": "[dead]"
+  },
+  {
+    "id": 45314004,
+    "by": "francispauli",
+    "parent": 45313882,
+    "text": "I&#x27;m guessing you never tried Linux either"
+  },
+  {
+    "id": 45314056,
+    "by": "bitexploder",
+    "parent": 45313882,
+    "text": "That all seemed pretty adult and tame. Maybe slightly stand-offish at worst. And I tended to agree with Andrew in that thread. A project like Zig is an absolutely massive undertaking. I can cut Andrew some slack. Not everyone is perfect all the time, and his behavior there was nowhere close to BS I have seen in other open source projects. Ahem, Linus."
+  },
+  {
+    "id": 45316945,
+    "by": "lioeters",
+    "parent": 45314655,
+    "text": "From his &quot;Open Letter to Everyone I&#x27;ve Butted Heads With&quot;:<p>&gt; My friend - it&#x27;s not personal. I care about you. I actually do value your opinion. I&#x27;m interested in your thoughts and feelings. I want to make you happy. I&#x27;m sad that I can&#x27;t serve you better with my open source project. I want to. I wish I could.<p>&gt; I&#x27;m hustling. I&#x27;m playing the game. I&#x27;m doing what it takes to make this thing mainstream and a viable, practical choice for individuals and companies. If you talk shit about Zig in public, I&#x27;m going to fight back. But I respect you. I see you. I understand you. I don&#x27;t hate you. I would literally buy you a drink.<p><a href=\"https:&#x2F;&#x2F;andrewkelley.me&#x2F;post&#x2F;open-letter-everyone-butted-heads.html\" rel=\"nofollow\">https:&#x2F;&#x2F;andrewkelley.me&#x2F;post&#x2F;open-letter-everyone-butted-hea...</a>"
+  },
+  {
+    "id": 45319217,
+    "by": "flykespice",
+    "parent": 45314697,
+    "text": "Yea I think my post came off as insulting which I didn&#x27;t mean at all (I particulary don&#x27;t consider &quot;dickhead&quot; as insult but more a synonym for bad character)<p>I have nothing against him at all or his language (in fact I hope it further replaces C dominant position in embedded systems and low level programming), I just wish he toned down his passive attitude against criticism acting in good faith."
+  },
+  {
+    "id": 45315235,
+    "by": "ManBeardPc",
+    "parent": 45315104,
+    "text": "It has proper arrays and slices, even being able to define a sentinel value in the type system, so you know when it is a C string or a slice with a specific size with arbitrary values. Strings can become a problem if you need another encoding than the chosen one. Then you start to use byte slices anyway. You need to allocate a new one if you want to change just a part of it. Safer yes, but can produce unwanted overhead and you have to duplicate many APIs for strings and byte arrays as it is the case in Go."
+  },
+  {
+    "id": 45317491,
+    "by": "jamii",
+    "parent": 45314697,
+    "text": "EDIT I totally missed the context"
+  },
+  {
+    "id": 45315125,
+    "by": "ManBeardPc",
+    "parent": 45314485,
+    "text": "Comptime is very nice but certainly more limited then Lisp. You can&#x27;t generate arbitrary code with it. But good enough to implement something like JSON serialization or Struct-of-Arrays in normal code that is readable.<p>Custom allocators are very nice. We are very much in manual memory management + optimization territory here. Having things like arena allocators makes a lot of difference in specific use-cases when you want&#x2F;need every bit of performance. Also nice being able to switch the allocator for tests that is able to report leaks for example.<p>Yes, hidden control flow I mean something like exceptions, RAII or Rust&#x27;s Dispose. So more a comparison to other languages than C.<p>The explanation I would refer to the talks &quot;Don&#x27;t forget to flush&quot; or &quot;Zig Roadmap 2026&quot; from Andrew Kelley. Also the blog post &quot;Zig&#x27;s New Async I&#x2F;O&quot;. I think it has something to do with being able to infer the required size of the stack, but already forgot the details.<p><a href=\"https:&#x2F;&#x2F;kristoff.it&#x2F;blog&#x2F;zig-new-async-io&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;kristoff.it&#x2F;blog&#x2F;zig-new-async-io&#x2F;</a>\n<a href=\"https:&#x2F;&#x2F;youtu.be&#x2F;f30PceqQWko?si=g2nLTE4ubWD14Zvn\" rel=\"nofollow\">https:&#x2F;&#x2F;youtu.be&#x2F;f30PceqQWko?si=g2nLTE4ubWD14Zvn</a>\n<a href=\"https:&#x2F;&#x2F;youtu.be&#x2F;x3hOiOcbgeA?si=SUntYOYNOaxCRagc&amp;t=3653\" rel=\"nofollow\">https:&#x2F;&#x2F;youtu.be&#x2F;x3hOiOcbgeA?si=SUntYOYNOaxCRagc&amp;t=3653</a><p>As to compared to Rust. The fast compile times are nice. Having a small language that you actually can understand helps to be productive. Not being restricted by the borrow checker makes it easier to implement some low-level things. Just being able to import most C code without wrapper makes the smaller ecosystem a much smaller problem. Rust is nice and certainly a good pick for many cases, but personally I often feel overwhelmed by the complexity and tons of tons of types for everything."
+  },
+  {
+    "id": 45320397,
+    "by": "pjmlp",
+    "parent": 45315104,
+    "text": "Many of those warts were already not present in other systems languages predating C, and others of similar age."
+  },
+  {
+    "id": 45317853,
+    "by": "pron",
+    "parent": 45314386,
+    "text": "AST macros are very <i>powerful</i>. As to them being &quot;good&quot;, that&#x27;s debatable. They have advantages but also disadvantages. For one, they operate on syntax, so they&#x27;re a separate metalanguage and not so pleasant to debug. For another, they are referentially opaque (i.e. when passed different expressions with the same meaning, they can produce different results), which makes them powerful but also mysterious.<p>What&#x27;s interesting about Zig&#x27;s comptime is that while it&#x27;s strictly less powerful than AST macros, it can do a lot of what macros can do while not being a metalanguage - just Zig."
+  },
+  {
+    "id": 45332245,
+    "by": "user____name",
+    "parent": 45315104,
+    "text": "It feels like C but raised with Java as its strict stepfather."
+  },
+  {
+    "id": 45314427,
+    "by": "jeremyjh",
+    "parent": 45314386,
+    "text": "To be clear, we all know GP is talking about C macros."
+  },
+  {
+    "id": 45314598,
+    "by": "Cloudef",
+    "parent": 45314485,
+    "text": "&gt; On the other hand, this doesn&#x27;t sound to me like an upside. Of course it&#x27;s fine and well if it&#x27;s easy to do this. But hopefully you&#x27;d prefer not to have to... ?<p>Why wouldn&#x27;t you? You can often make your code simpler and more performant by using certain allocation strategy rather than relying on global allocator. Malloc&#x2F;Free style strategy is also very error prone with complex hierarchical data structures where for example arena allocation can tie the whole lifetime to a single deallocation.<p>&gt; Would appreciate some explanation of the theory here. Though it does occur to me that the languages I can easily think of with &quot;coloured&quot; async also don&#x27;t exactly statically link everything all the ti<p>Async is moot point, it does not exist in zig right now, it used to but it was removed. There are plans to reintroduce it back, but using async as any sort of benefit for zig is not being honest."
+  },
+  {
+    "id": 45321527,
+    "by": "pron",
+    "parent": 45320407,
+    "text": "Given their level of adoption, those languages represented what their creators thought, not necessarily what the industry thought."
+  },
+  {
+    "id": 45316686,
+    "by": "ManBeardPc",
+    "parent": 45314386,
+    "text": "Not only being text based but also having another separate language is problematic. Rust also has powerful declarative macros but it is it\u2019s own language. Procedural macros and crabtime are imho a bit better for more complex cases as you write Rust."
+  },
+  {
+    "id": 45314924,
+    "by": "latch",
+    "parent": 45314500,
+    "text": "I ... don&#x27;t disagree with you. Thanks. It helps my understanding.<p>I know this is moving the goalpost, but it&#x27;s still a shame that it [obviously] has to be a runtime error. Practically speaking, I still think it leaves lot of friction and edge cases. But what you say makes sense: it doesn&#x27;t have to be unsafe.<p>Makes me curious why they asserted instead of erroring in the first place (and I don&#x27;t think that&#x27;s exclusive to the zstd implementation right now)."
+  },
+  {
+    "id": 45316014,
+    "by": "clanky",
+    "parent": 45314657,
+    "text": "Crashes from safety bugs are rare in HFT because they can replay years of data against code changes. For a strategy that trades in and out of positions quickly and is flat most of the time, it&#x27;s also often not a big deal if the program crashes in the midst of running, as long as some technique has been arranged to cancel resting orders and alert a trader (who is generally monitoring the system&#x27;s operations at all times).<p>They&#x27;re certainly not inclined to pursue safety at any expense of performance in their code."
+  },
+  {
+    "id": 45316748,
+    "by": "thayne",
+    "parent": 45314500,
+    "text": "So how would the Decompress Reader be implemented correctly? Should it use its own buffer that is guaranteed to be large enough? If so, how would it allocate that buffer?<p>At the very least, the API of the Readera and Writers lends itself to implementations that have this kind of bug, where they depend on the buffer being a certain size."
+  },
+  {
+    "id": 45315616,
+    "by": "logicchains",
+    "parent": 45314657,
+    "text": "&gt;Safety not important in HFT? You&#x27;d better make sure those precious microseconds buy you enough to make up for when things go awry.<p>Memory safety bugs are very rare in modern, well-written and tested C++. The key difference is that there are no adversarial inputs, while something like a browser or server needs to deal with potentially adversarial inputs, making absolute memory safety much more important (as even a single memory safety issue could be exploited)."
+  },
+  {
+    "id": 45316538,
+    "by": "ManBeardPc",
+    "parent": 45316273,
+    "text": "You can ofc use the *alloc from libc if you want. Otherwise there are different ones in the standard library, ArenaAllocator wraps another allocator, FixedBufferAllocator uses a given byte slice. I recommend to take a look at <a href=\"https:&#x2F;&#x2F;ziglang.org&#x2F;documentation&#x2F;master&#x2F;std&#x2F;#std.heap\" rel=\"nofollow\">https:&#x2F;&#x2F;ziglang.org&#x2F;documentation&#x2F;master&#x2F;std&#x2F;#std.heap</a> to get an overview."
+  },
+  {
+    "id": 45321169,
+    "by": "Galanwe",
+    "parent": 45318441,
+    "text": "I don&#x27;t count Odin as a modern C, because it is IMHO too different syntaxically to fit that description."
+  },
+  {
+    "id": 45315248,
+    "by": "Arch-TK",
+    "parent": 45314375,
+    "text": "Rusty rust?<p>I don&#x27;t think there is such a specific thing and certainly disagree that all idiomatic rust is somehow slower by default.<p>You can write rust like you might write a higher level language and then that can end up slower but if you write idiomatic low level rust, the performance is much harder to compare with C. There are things which will be faster in C and things which will be faster in Rust but broadly things will be extremely similar in performance.<p>I write bare metal embedded rust a lot these days and there are quite complex concepts you can represent in rust which make your code a lot safer without a performance hit."
+  },
+  {
+    "id": 45315142,
+    "by": "metaltyphoon",
+    "parent": 45314375,
+    "text": "&gt; Rusty rust and C++-y C++ are both often slower than hand-rolled C for a given function<p>This makes no sense whatsoever and very far from the truth."
+  },
+  {
+    "id": 45321605,
+    "by": "tialaramex",
+    "parent": 45318173,
+    "text": "Looks general purpose to me. What purposes couldn&#x27;t you use Zig for? A general-purpose programming language isn&#x27;t necessarily <i>good</i> for every purpose but it can be used. For example both Java and C are general purpose languages. Should you write an OS kernel in Java? Maybe that&#x27;s unwise but people did. Should you write a web browser in C? Again unwise but people did.<p>Some languages aren&#x27;t like this. You can&#x27;t write an OS kernel in WUFFS for example and that&#x27;s on purpose, that&#x27;s not what WUFFS is for."
+  },
+  {
+    "id": 45314701,
+    "by": "Cloudef",
+    "parent": 45314657,
+    "text": "&gt; modern online gaming with microtransactions<p>I don&#x27;t think anyone should develop such games either"
+  },
+  {
+    "id": 45315234,
+    "by": "ioasuncvinvaer",
+    "parent": 45315157,
+    "text": "How is Rust anti zig if it came first?"
+  },
+  {
+    "id": 45314431,
+    "by": "ViewTrick1002",
+    "parent": 45314336,
+    "text": "Which is written in C&#x2F;C++. Showing that Zig is not moving the needle on UB when a project becomes sufficiently complex.<p>Take a look at Deno and check the percentage coming from FFI with unsafe languages.<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;denoland&#x2F;deno&#x2F;issues?q=Segfault\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;denoland&#x2F;deno&#x2F;issues?q=Segfault</a>"
+  },
+  {
+    "id": 45315342,
+    "by": "simonask",
+    "parent": 45315206,
+    "text": "\u201cSafety\u201d as defined in the context of the Rust language - the absence of Undefined Behavior - is important 100% of the time. Without it, you are not writing programs in the language you think you are using.<p>That\u2019s a convoluted way to say that UB is much, much worse than you think. A C program with UB is not a C program, but something else."
+  },
+  {
+    "id": 45314460,
+    "by": "jeremyjh",
+    "parent": 45314336,
+    "text": "The question that matters is how many deno has."
+  },
+  {
+    "id": 45315132,
+    "by": "Validark",
+    "parent": 45314359,
+    "text": "Andrew wrote ONE SENTENCE and that&#x27;s enough for you to diagnose him? That&#x27;s enough for you to identify a pattern of behavior? Really?<p>He&#x27;s &quot;polishing a pig&quot;? He&#x27;s hiding &quot;all issues&quot; with Zig in internal mailing lists to &quot;project a polished facade&quot;? ALL?! You got all that from one sentence saying he wishes the author took a different approach?<p>Alright, fine. Here&#x27;s my analysis of your character and lifelong patterns of behavior based on your first two sentences:<p>You just want to tear down everybody who is trying to do good work if they make any mistake at all. You look for any imperfection in others because criticizing people is the only approximation of joy in your existence. You are the guy that leaves Google reviews of local restaurants where you just critique the attractiveness of the women who work there. You see yourself as totally justified and blameless for your anti-social behavior no matter the circumstances, and you actually relish the idea of someone being hurt by you because that&#x27;s all the impact you could hope for.<p>If that&#x27;s not accurate to who you are, well, \u00af\\_(\u30c4)_&#x2F;\u00af that&#x27;s just how it reads to me."
+  },
+  {
+    "id": 45314053,
+    "by": "zamadatix",
+    "parent": 45314012,
+    "text": "Yeah, I could see it being better without that portion of the final sentence. At the same time, I think opening &quot;What a terrible way to take constructive feedback&quot; is at least equally as grating a way to engage about it - but at the end of the day we&#x27;re all humans, not saints, and it seems clear to me both comments are well intentioned and decently put as a whole. Same as me, I&#x27;m sure if I look back at these comments in 3 days there will be parts I would have changed, but overall I&#x27;d probably thing they were decent instead of terrible.<p>I&#x27;m glad you made the note about that part though, I agree with it and we can always do better."
+  },
+  {
+    "id": 45314241,
+    "by": "koiueo",
+    "parent": 45314088,
+    "text": "And posting direct links to the places where discussion actually happens along with providing tldr context is as constructive as you can get.\nBut whatever :)"
+  },
+  {
+    "id": 45318597,
+    "by": "Intermernet",
+    "parent": 45314359,
+    "text": "The &quot;endless internal discussions&quot; are more likely to give you an actual answer with considered feedback from all interested parties. The quick search, although gratifying, is more often than not just an opinion."
+  },
+  {
+    "id": 45315251,
+    "by": "ioasuncvinvaer",
+    "parent": 45314014,
+    "text": "Is it reasonable in its entirety?"
+  },
+  {
+    "id": 45314166,
+    "by": "oofd4",
+    "parent": 45314088,
+    "text": "[dead]"
+  },
+  {
+    "id": 45314210,
+    "by": "MarkusQ",
+    "parent": 45314088,
+    "text": "It depends on context.  When someone raises a potential objection and then says &quot;but whatever&quot; they are being dismissive towards their own objection.  This is also called &quot;letting it go&quot; or &quot;moving on&quot;."
+  },
+  {
+    "id": 45314704,
+    "by": "unclad5968",
+    "parent": 45314275,
+    "text": "I don&#x27;t even like Zig but I read your blog for the low level technical aspects. I agree completely that blog posts are collaborative. I read all kinds of blogs that talk about how computers work. I can&#x27;t say if it brings value to the Zig people, but it certainly brings value to me regardless!"
+  },
+  {
+    "id": 45314069,
+    "by": "didibus",
+    "parent": 45313912,
+    "text": "I&#x27;d say the only issue what the &quot;too dumb, but whatever&quot; comment.<p>That should have been removed and it would have been totally reasonable.<p>Edit: Oh actually, the author has another blog post titled &quot;I&#x27;m too dumb for Zig ...&quot;. With that context, it makes sense and I agree it&#x27;s a reasonable response. I&#x27;m sure other readers like me didn&#x27;t know that context though."
+  },
+  {
+    "id": 45314096,
+    "by": "zamadatix",
+    "parent": 45314044,
+    "text": "The claim isn&#x27;t you should shut down your blog and only talk on GitHub to be engaged with the community. Zig has tons of communities <a href=\"https:&#x2F;&#x2F;github.com&#x2F;ziglang&#x2F;zig&#x2F;wiki&#x2F;Community\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;ziglang&#x2F;zig&#x2F;wiki&#x2F;Community</a> and, of course, blogs also play a part in the overall community too. Picking a single engagement option is probably always a poor choice, but that option being your personal blog alone would be one of the poorest. That&#x27;s where the feeling of lack of collaborating with the community is coming from, not that they specifically don&#x27;t engage in GitHub alone.<p>Make blog posts, it&#x27;s great!, but if you don&#x27;t think you&#x27;re the expert then they&#x27;ll go a lot farther for everyone if you put 5% of the work of doing so into engaging with the community about it for additional insights first. That&#x27;s a fair note to make, though I agree the ending could be less passive aggressive about those who don&#x27;t want to engage with the community."
+  },
+  {
+    "id": 45318552,
+    "by": "Intermernet",
+    "parent": 45314298,
+    "text": "It seems we have a different definition of collaboration. I assumed that it meant communication between the parties. Publishing blog posts has many purposes, but dirrect communication isn&#x27;t one of them.<p>&quot;They are under zero obligation to create bug reports, file issues, check in on a chat channel, or contribute in any other way to an open source software project that does not employ them.&quot; Correct, and absolutely fine, but not collaboration.<p>&quot;Writing blog posts is a perfectly reasonable and normal community behavior.&quot; Correct, and absolutely fine, but not collaboration either.<p>&quot;The members of the Zig project are free to reach out to the author!&quot; Yes, but it&#x27;s much easier, more efficient and direct for the author to have reached out to the Zig team.<p>&quot;When you create a project in public people will write about it, tweet about it, complain about it, etc (if you\u2019re lucky!).&quot; Yes, but, once again, this isn&#x27;t collaboration."
+  },
+  {
+    "id": 45322191,
+    "by": "fp64",
+    "parent": 45314012,
+    "text": "Meh, I have the impression the blog author really hates Zig&#x27;s new Writer (fair, I disagree, but fair), but his criticism in this example is in my eyes slightly questionable -- it is a bug in the implementation and not a conceptual issue. He then uses quite some loaded phrasing like &quot;I must be too dumb to understand this&quot; and &quot;I can&#x27;t be really too dumb can I?&quot; which I think ruin the discussion (as do the titles. He failed to convince me, for instance, that the new Writer was inherently unsafe by design). It feels like a &quot;Look I told you!!! You run into bugs like this!!!&quot; which is not helpful for a feature&#x2F;refactor that was already advertised as complex and not fully implemented or verified.<p>Disclaimer: I&#x27;m a zig fanboy and do all my hobby stuff in it"
+  },
+  {
+    "id": 45314848,
+    "by": "Validark",
+    "parent": 45314298,
+    "text": "Intermernet said, &quot;Posting critical blog posts [...] is counter-productive.&quot;<p>You said, &quot;anybody [...] can write whatever they want&quot;. &quot;They are under zero obligation ...&quot;. &quot;Members of the Zig project are free to reach out ...&quot;<p>Do you not realize that you have not at all addressed the point about what is the most productive way to criticize?<p>All you have done is go off about people&#x27;s rights, freedoms, and lack of obligations. But nobody actually said &quot;People shouldn&#x27;t be able to post critical blog posts&quot; or &quot;People are obligated to participate by filing issues or contributing code to open source&quot;. So what was the point in saying this? Do you think people believe anything contrary to what you said?"
+  },
+  {
+    "id": 45314017,
+    "by": "nromiun",
+    "parent": 45314004,
+    "text": "Just because a popular project leader is a jerk does not mean the way to success is to be a jerk too."
+  },
+  {
+    "id": 45321609,
+    "by": "taminka",
+    "parent": 45315125,
+    "text": "&gt; Yes, hidden control flow I mean something like exceptions, RAII or Rust&#x27;s Dispose. So more a comparison to other languages than C.<p>C has macros, which is the ultimate form of hidden control flow, where a symbol can expand to any arbitrary code... also hidden allocations and functions that can error, which you could argue isn&#x27;t traditionally understood as hidden control flow, but it&#x27;s still nice to know when stuff is allocated and&#x2F;or can create an error"
+  },
+  {
+    "id": 45314410,
+    "by": null,
+    "parent": 45314004,
+    "text": ""
+  },
+  {
+    "id": 45318586,
+    "by": "Intermernet",
+    "parent": 45314170,
+    "text": "You can keep writing blogs, but if you want to collaborate you should use the actual mechanisms set up by the project to do so. It&#x27;s fine if you want to blog about this stuff, and it&#x27;s often a means for developers to get their name out there and promote their opinions and ideas. There is nothing wrong with doing this, but if you actually have an issue with a project it&#x27;s much faster, simpler, and, dare I say it, polite, to use the actual channels created for exactly this purpose."
+  },
+  {
+    "id": 45314532,
+    "by": "hoten",
+    "parent": 45314056,
+    "text": "Did you read until the end of the thread? I was thinking the same at first but only because it took awhile for the conversation to play out.<p>From my plain reading he didn&#x27;t take time to understand the proposal before providing feedback. That&#x27;s fine as far as being busy or miscommunication goes, it happens, but after it was pointed out he never apologized or offered more constructive feedback. Which again is fine, but I&#x27;d expect a technical leader to not isolate the maintainers of their most critical dependency. Clearly he gave them a terrible first impression."
+  },
+  {
+    "id": 45321600,
+    "by": "pjmlp",
+    "parent": 45321527,
+    "text": "Same applies to Zig, which without something comparable to how UNIX, OS X, Windows SDK, iOS, Docker, among others have forced industry adoption of specific languages, Zig will have as much industry adoption as those languages, just another D or C3.<p>Maybe Oracle could make it unavoidable on JVM, instead of keeping to use C and C++ on the runtime."
+  },
+  {
+    "id": 45317681,
+    "by": "kiitos",
+    "parent": 45316748,
+    "text": "&gt; So how would the Decompress Reader be implemented correctly? Should it use its own buffer that is guaranteed to be large enough?<p>yes<p>&gt; If so, how would it allocate that buffer?<p>as it sees fit. or, it can offer mechanisms for the caller to provide pre-allocated buffer(s). in any case the point is that this detail can&#x27;t be the responsibility of the producer to satisfy, unless that requirement is specified somehow explicitly<p>in general the new zig io interfaces conflate behavior (read&#x2F;write) with implementation (buffer size(s))"
+  },
+  {
+    "id": 45321450,
+    "by": "ManBeardPc",
+    "parent": 45314598,
+    "text": "Regarding async I kind of agree with you right now, but the new design is there and currently getting implemented. If you don\u2019t believe it will work out or need to use async right now sure, use something else. It is not a stable language yet and very much WIP. I don\u2019t think it\u2019s dishonest to write about something that has a design and is worked on right now with a realistic chance of working out."
+  },
+  {
+    "id": 45318124,
+    "by": "jmull",
+    "parent": 45317491,
+    "text": "Read the comment I replied to.<p>edit: np :)"
+  },
+  {
+    "id": 45317825,
+    "by": "rowanG077",
+    "parent": 45315125,
+    "text": "Rust dispose? I think you mean drop. But I don&#x27;t see how that is hidden control flow. It&#x27;s very clear when it drop is called."
+  },
+  {
+    "id": 45316976,
+    "by": "pclmulqdq",
+    "parent": 45315248,
+    "text": "Idiomatic &quot;low level&quot; rust clocks in at about 10-50% slower than hand-coded C every time I try it. It is also about 10x easier to write the Rust code. Unsafe is just required a lot of the time. Sometimes it&#x27;s code size or struct size just being larger to express a similar concept. To get back your performance you have to do things that are un-idiomatic (but you have to do in C anyway)."
+  },
+  {
+    "id": 45315642,
+    "by": "pron",
+    "parent": 45315234,
+    "text": "It was a joke premised on the implicit assumption that Zig must be an &quot;anti-Rust&quot; because it came later. Maybe you could call different approaches contrarian if Rust had achieved some great popularity or consensus, but it hasn&#x27;t. Rust&#x27;s adoption rate is low because many don&#x27;t find it enticing enough, and so it&#x27;s unsurprising that there are several other approaches in the space of low-level programming - which is due for some update - that are all different from each other. Their attempts to improve on C and C++ in different ways don&#x27;t make them &quot;anti&quot; anything else."
+  },
+  {
+    "id": 45324913,
+    "by": "scuff3d",
+    "parent": 45321169,
+    "text": "I disagree. Maybe in syntax it&#x27;s a bit different but in spirit I think it&#x27;s absolutely a modern C. Purely procedural code and manually memory managed. On top of that Ginger Bills stated goal for the project is to basically grind down all the rough edges off C.<p>Plus if you look at something like Zig, it syntactically starts to drift a lot as well. They left behind C&#x27;s &quot;use matches declaration&quot; approach (thank God), capture groups look like nothing in C, function definitions are entirely different, the list goes on."
+  },
+  {
+    "id": 45315295,
+    "by": "littlestymaar",
+    "parent": 45315234,
+    "text": "Ron Presler (the person you&#x27;re responding to) is pathologically anti-Rust since before the birth of Zig."
+  },
+  {
+    "id": 45317512,
+    "by": "Jweb_Guru",
+    "parent": 45314431,
+    "text": "People keep thinking that even though Microsoft, Apple, Google, etc. with all the incentive and tooling in the world couldn&#x27;t evade one of the few replicable results in programming languages (people can&#x27;t reliably write memory safe code in memory unsafe languages), somehow with Zig it will be different.  It&#x27;s honestly a pretty fascinating phenomenon to me because most of these people are smart, and some of them are even ostensibly in the security community."
+  },
+  {
+    "id": 45317765,
+    "by": "kiitos",
+    "parent": 45315342,
+    "text": "curious, where is the definition of &quot;undefined behavior&quot; for rust specified?"
+  },
+  {
+    "id": 45321660,
+    "by": "pron",
+    "parent": 45321600,
+    "text": "I don&#x27;t claim Zig represents what the industry thinks. The sharply declining use of low-level languages for high-level applications, however, shows that that idea is certainly unpopular these days. It could still be the case that more people will favour the C++&#x2F;Rust style of zero cost abstractions even for low-level programming. I make no prediction there.<p>As for HotSpot, we&#x27;re not going to make a bet on a language with an uncertain future, and that goes for both Zig and Rust. What is more likely to happen (and is happening already) is gradually reducing the use of low-level languages in the JVM in favour of Java itself. We&#x27;ve already replaced a lot of IO code in C&#x2F;C++ with Java, and the implementation of reflection has already largely moved from C++ to Java."
+  },
+  {
+    "id": 45314235,
+    "by": null,
+    "parent": 45314053,
+    "text": ""
+  },
+  {
+    "id": 45314525,
+    "by": "zahlman",
+    "parent": 45314017,
+    "text": "Sure, but the evidence suggests that a complete inability to <i>deal with</i> jerks is going to be very limiting."
+  },
+  {
+    "id": 45315255,
+    "by": "ViewTrick1002",
+    "parent": 45315132,
+    "text": "I am not talking about Andrew? I am sorry if that was not as clear as it needed to be.<p>Not sure where the tirade came from?<p>I am talking about the person responding here trying to decry OP for not hiding away his issues in internal communication channels."
+  },
+  {
+    "id": 45319740,
+    "by": "nromiun",
+    "parent": 45318586,
+    "text": "When the inside channels set up by the project gaslight people into thinking there is no problem at all I think it is more appropriate to use blogs, where you have complete freedom to say what you want.<p>Also, blogs have been used since forever to give constructive feedback to other projects, even other programming languages. So I don&#x27;t understand why it is suddenly not okey for the Zig project."
+  },
+  {
+    "id": 45318264,
+    "by": "jamii",
+    "parent": 45318124,
+    "text": "My bad :)"
+  },
+  {
+    "id": 45315165,
+    "by": "asa400",
+    "parent": 45314848,
+    "text": "The parent quite literally made a normative statement and I disagreed with it:<p><pre><code>  &gt; Collaborating would be contacting the Zig team through one of the many channels available and asking questions, offering suggestions etc.\n</code></pre>\nIf nothing else, this is attempting to define what counts as valid collaboration, and it&#x27;s a definition I reject, so I disagreed with it. Good-faith experience reports are valid, useful, pro-social collaboration. Doing so is a perfectly productive way to criticize.<p><pre><code>  &gt; So what was the point in saying this? Do you think people believe anything contrary to what you said?\n</code></pre>\nApparently they do. The parent even made a veiled accusation that the author writing a good-faith blog post on their own blog about their own experiences &quot;can even be seen as self promotion&quot;. Since when is sharing your good-faith critique about the design of a tool you&#x27;ve used something underhanded or nefarious?<p>Setting the bounds of valid community collaboration to &quot;people can post on their own blog as long as I like it otherwise they&#x27;re being mean&quot; is not a set of values I subscribe to, so I felt it was worth it to articulate that."
+  },
+  {
+    "id": 45328665,
+    "by": "Cloudef",
+    "parent": 45321450,
+    "text": "Sure and I&#x27;m excited for it (especially stackless), but I&#x27;d be wary of marketing something that doesn&#x27;t actually exist yet."
+  },
+  {
+    "id": 45317902,
+    "by": null,
+    "parent": 45317681,
+    "text": ""
+  },
+  {
+    "id": 45317904,
+    "by": "pron",
+    "parent": 45317825,
+    "text": "It&#x27;s clear once you know that an object implements the Drop trait, but you can&#x27;t see that at the use site, ergo it&#x27;s hidden (same goes for C++ destructors). Zig wants every call to be visible.<p>The tradeoff is between making sure you don&#x27;t forget to <i>write</i> the cleanup  call (Rust, C++) and making sure you don&#x27;t forget to <i>read</i> the cleanup call (Zig). For low-level code I personally prefer Zig&#x27;s tradeoff; others prefer the C++&#x2F;Rust tradeoff."
+  },
+  {
+    "id": 45314488,
+    "by": "canadaduane",
+    "parent": 45314096,
+    "text": "FWIW as someone with only a pinky toe in the Zig community, it&#x27;s quite engaging and interesting to see a blog post like this. It makes me want to learn more, and reminds me that there&#x27;s a wide tent here (that might even include me!), not just a tight-knit &quot;inside&quot; group."
+  },
+  {
+    "id": 45318395,
+    "by": null,
+    "parent": 45318124,
+    "text": ""
+  },
+  {
+    "id": 45317775,
+    "by": "simonask",
+    "parent": 45316976,
+    "text": "That is an unbelievable claim.<p>1. Rust structs are generally smaller due to layout optimization.<p>2. A 10-50% difference is well within the \u201care you measuring debug builds?\u201d territory.<p>I\u2019m curious what code you are writing that requires unsafe all the time? I do a lot of low-level optimization, and unsafe is barely ever actually needed."
+  },
+  {
+    "id": 45321138,
+    "by": "ManBeardPc",
+    "parent": 45317825,
+    "text": "Drop yes. Thanks for the correction.<p>It is clear when it is called, but you have to check in code you are not currently seeing as any type could implement it. May seem like a minor thing, but is not explicit at the point of usage. In Zig only code you call explicitly runs, meaning if there is no defer nothing happens at the end of the scope."
+  },
+  {
+    "id": 45345360,
+    "by": "Galanwe",
+    "parent": 45324913,
+    "text": "I mean, Odin is admittedly vastly different from C in terms of syntax. It&#x27;s not like you can pick it up knowing C, it feels like a different language.<p>The author even states that Odin started as a Pascal clone, and was more influenced by Pascal than C.<p>&gt; The language began as a Pascal clone (with begin and end and more)<p>&gt; The language borrows heavily from (in order of philosophy and impact): Pascal, C, Go, Oberon-2, Newsqueak, GLSL."
+  },
+  {
+    "id": 45315494,
+    "by": "pron",
+    "parent": 45315295,
+    "text": "Oh, I&#x27;m very pro Rust. I think that its use of the borrow checker is inspired and quite spectacular, that we can learn a lot from it. I just don&#x27;t like it (as a practical programming language). It&#x27;s not for me and for people who have similar preferences.<p>I am, however, very much anti claims made by some Rust fans that take an empirical and universal nature and are simply not known to be true (e.g. it is true that the more memory safety guarantees the fewer the vulnerabilities - all else being equal - but it is quite simply logically incorrect to conclude from that that the best way to minimise vulnerabilities is to have more sound safety guarantees).<p>I think Rust is a fantastic fit for some people who want to do low-level programming, and a pretty bad fit for others (like me). Same goes for Zig or, really, almost any language. Obviously, neither one is inherently or universally superior to the other.<p>BTW, my enthusiasm for Zig is not because I like all of its design decisions, but mostly because it&#x27;s so different from most other languages and, in some cases, its decisions run contrary to my personal inclination (e.g. with regards to encapsulation) that I&#x27;m fascinated to know how it works out. Rust, on the other hand, is less interesting for me to think about, because aside from the more intensive typechecking (that I&#x27;m already familiar with from other languages) the overall experience it offers is quite similar to C++. Maybe I won&#x27;t like what Zig ends up becoming, but for someone who&#x27;s seen so many languages, it&#x27;s really interesting to come across something so fresh."
+  },
+  {
+    "id": 45333525,
+    "by": "surajrmal",
+    "parent": 45317512,
+    "text": "It&#x27;s not that they think zig will avoid the issues, but rather that the cost required to do so is too great, so they would rather have a nicer language with more traditional ways to catch those bugs. If things like memory tagging continue to take off, hardware will catch these issues anyways. I don&#x27;t personally agree but they are allowed to have their opinions.<p>More than memory safety, I do think thread safety is a bigger challenge I&#x27;d love more modern languages to tackle."
+  },
+  {
+    "id": 45317410,
+    "by": "Arch-TK",
+    "parent": 45316976,
+    "text": "Show examples please."
+  },
+  {
+    "id": 45318383,
+    "by": "lyu07282",
+    "parent": 45317512,
+    "text": "We have language groupies now, like how teenagers have their favourite k-pop bands, I wouldn&#x27;t take it all so seriously. Security has a tendency of making itself undeniable, it&#x27;s lessons will be learned one way or another by everybody without exception."
+  },
+  {
+    "id": 45317808,
+    "by": "simonask",
+    "parent": 45317765,
+    "text": "Here: <a href=\"https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;reference&#x2F;behavior-considered-undefined.html\" rel=\"nofollow\">https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;reference&#x2F;behavior-considered-unde...</a>"
+  },
+  {
+    "id": 45324933,
+    "by": "pjmlp",
+    "parent": 45321660,
+    "text": "Which is exactly the direction I see going forward, finally getting mainstream mindshare closer to how Xerox PARC languages were bootstraped, languages like Zig come about 30 years too late.<p>Rust is already shipping in production for Windows, Android, Amazon and Azure infrastructure, and the Azure official language for new low level systems code, hardly questionable its adoption in the industry at scale.<p>Naturally someone might prove me wrong by releasing that one framework or product that makes writing Zig code unavoidable."
+  },
+  {
+    "id": 45320576,
+    "by": "Intermernet",
+    "parent": 45315255,
+    "text": "The internal communication channels are where the people who can fix the problem are looking. They aren&#x27;t looking at random blogs until it&#x27;s too late to actually have a meaningful and calm discussion with the person raising the issue.<p>If the author <i>had</i> raised the issue on the actual channels that the Zig project requests people use, and then the Zig team had been dismissive or rude, then, yeah, for sure go writing blog posts. I&#x27;m not sure why this is such a hard thing to grasp. If you have an issue, raise it with the people who can fix the issue first. Don&#x27;t immediately go screaming from the roof-tops. That behaviour is entitled, immature, insincere and unproductive."
+  },
+  {
+    "id": 45314551,
+    "by": "nromiun",
+    "parent": 45314525,
+    "text": "Maybe for some people. But most people are not jerks and you can absolutely limit yourself to dealing with them only."
+  },
+  {
+    "id": 45317863,
+    "by": "pclmulqdq",
+    "parent": 45317775,
+    "text": "It sounds like you work with people who don&#x27;t really know C. Understanding how to pack a struct is a pretty basic skill. Write an optimized database or network stack without unsafe for me.<p><a href=\"https:&#x2F;&#x2F;benchmarksgame-team.pages.debian.net&#x2F;benchmarksgame&#x2F;fastest&#x2F;rust-gcc.html\" rel=\"nofollow\">https:&#x2F;&#x2F;benchmarksgame-team.pages.debian.net&#x2F;benchmarksgame&#x2F;...</a>"
+  },
+  {
+    "id": 45322526,
+    "by": "littlestymaar",
+    "parent": 45315494,
+    "text": "&gt; Oh, I&#x27;m very pro Rust.<p>Maybe you don&#x27;t want to admit it at this point, but you&#x27;ve spent literal <i>hours</i> of your time (more likely tens of hours, in fact given the sheer volume of comments) on this very forum explaining why Rust was dead on arrival because it was too complex.<p>Now I get that such a position is hard to defend now that Rust has pretty much won and is running on everyone&#x27;s phone and computer, but such a volume of disparagement on every single Rust post didn&#x27;t go unnoticed.<p>I&#x27;m glad you&#x27;ve fixed your anger issue, unless you&#x27;re just being an hypocrite right now."
+  },
+  {
+    "id": 45318794,
+    "by": "rowanG077",
+    "parent": 45317904,
+    "text": "What do you mean if an object implements a drop? Whether an object implements a drop has no bearing on when it is called. I mean a developer can manually call it. But it is always clear when it is called."
+  },
+  {
+    "id": 45318560,
+    "by": "Intermernet",
+    "parent": 45315165,
+    "text": "&quot;Good-faith experience reports are valid, useful, pro-social collaboration.&quot; Good-faith reports would be made directly to the Zig team."
+  },
+  {
+    "id": 45320548,
+    "by": "Intermernet",
+    "parent": 45319740,
+    "text": "Blogs aren&#x27;t constructive feedback because they aren&#x27;t easily discoverable. If you see someone has something stuck in their teeth do you yell it to the world and hope they fix the problem, or do you first politely and discretely inform the person. Resorting to blogs as the first course of feedback isn&#x27;t about helping a project, or collaborating, it&#x27;s about advertising to the world."
+  },
+  {
+    "id": 45318148,
+    "by": "simonask",
+    "parent": 45317904,
+    "text": "A funny thing I\u2019ve noticed is that some Rust programmers will explicitly call `std::mem::drop(\u2026)` in tricky situations where it really matters, like releasing a mutex with complex interactions - even at the end of scope. I kind of like it whenever a lock is held for more than a few lines.<p>I think it\u2019s a good compromise, because the consequences of forgetting it are way harsher. Memory leaks, deadlocks\u2026"
+  },
+  {
+    "id": 45324125,
+    "by": "jasmes",
+    "parent": 45318383,
+    "text": "AESPA"
+  },
+  {
+    "id": 45343615,
+    "by": "Jweb_Guru",
+    "parent": 45333525,
+    "text": "People are allowed to have whatever opinions they want, sure.  I&#x27;ve seen numerous advocates of Zig defend the idea that &quot;in practice&quot; it is about as memory safe as Rust, something that&#x27;s clearly not true.  That&#x27;s the part I find weird, not that people enjoy using unsafe languages."
+  },
+  {
+    "id": 45339926,
+    "by": "kiitos",
+    "parent": 45317808,
+    "text": "mmm, no, that&#x27;s an explicitly incomplete list of informally-described observable behaviors that qualify as undefined -- which is fine and good! but quite far from a specification!"
+  },
+  {
+    "id": 45320763,
+    "by": "nromiun",
+    "parent": 45320576,
+    "text": "&gt; Don&#x27;t immediately go screaming from the roof-tops. That behaviour is entitled, immature, insincere and unproductive.<p>Nobody is screaming here except for you."
+  },
+  {
+    "id": 45321765,
+    "by": "tialaramex",
+    "parent": 45317863,
+    "text": "[dead]"
+  },
+  {
+    "id": 45324238,
+    "by": "jasmes",
+    "parent": 45320548,
+    "text": "Blogs aren\u2019t yelling to the world. They\u2019re just a place you put your thoughts for other people to read or not read. Think of it like open source internal monologue.<p>If youre too young to have context for blogging then it\u2019s not your fault. The intent of \u201cblogs\u201d is generally indeed advertising now a days."
+  },
+  {
+    "id": 45315667,
+    "by": "tingletech",
+    "parent": 45314551,
+    "text": "Unless you want to participate in your HOA or local government, then I can&#x27;t see how to limit myself to dealing with only non-jerks."
+  },
+  {
+    "id": 45321802,
+    "by": "dminik",
+    "parent": 45317863,
+    "text": "It takes some hubris to post &quot;rust is consistently 10% slower than C&quot; take and back it up with a page which shows a result 6:4 in Rusts favor."
+  },
+  {
+    "id": 45320753,
+    "by": "nromiun",
+    "parent": 45320548,
+    "text": "Sorry to have to say this, but you don&#x27;t have the authority to define what is and what is not constructive feedback. Polite, well written blogs like this are accepted by all people as constructive feedback."
+  },
+  {
+    "id": 45321250,
+    "by": "ManBeardPc",
+    "parent": 45318794,
+    "text": "The point is the code is on another type. Any variable could by of a type that implements some Drop logic. It is mostly called implicitly where it is used, wether you as a programmer are aware of it or not. You would need to check.<p>In Zig you need to call everything explicitly, meaning in the function you need to call what you want to be executed, no other code will run. The decision if you want some cleanup logic is made at the point of usage, not by the type itself.<p>That is the point of it, you look at a function and directly see what happens right there, not in other files&#x2F;packages."
+  },
+  {
+    "id": 45324120,
+    "by": "jasmes",
+    "parent": 45322526,
+    "text": "Chill out kiddos."
+  },
+  {
+    "id": 45318205,
+    "by": "simonask",
+    "parent": 45317863,
+    "text": "I did not say \u201cnever\u201d, I said \u201cbarely ever\u201d.<p>I\u2019m not really sure what your point is by linking the benchmarks game. I mean, it\u2019s a fun activity, but this is saying nothing about C vs. Rust. It may or may not be saying something about GCC vs. LLVM."
+  },
+  {
+    "id": 45325621,
+    "by": "pron",
+    "parent": 45322526,
+    "text": "Oh, I didn&#x27;t mean to touch a sore spot, I just assumed that by now it was obvious to everyone that a highly-marketed 10+-year-old language with less than 2% market penetration is unlikely (at least based on historical trends) to meet even the modest goal of half of the low-level software market (I wonder what someone who reads the numbers as &quot;Rust pretty much won&quot; would make of, say, Go&#x27;s success, that is, at best, moderate but disappointing; still well behind Ruby).<p>BTW, I spend longer on sillier. Years ago, my therapist suggested spending my downtime online activity on low-stake matters, so as far as programming is concerned, you might find quite a bit of Rust and Haskell. But you should really see my Lego and whisky rants. If I were to comment much on politics or Python I would fear for my blood pressure."
+  },
+  {
+    "id": 45318601,
+    "by": "pron",
+    "parent": 45318148,
+    "text": "&gt; I think it\u2019s a good compromise, because the consequences of forgetting it are way harsher.<p>And easier to detect. Knowing that no operation is carried out unless you can see it is important to many who do low-level programming.<p>But there is no one right answer. Differences between programming languages, including those between Zig and Rust, are mostly about people&#x27;s personal preferences because language designers rarely make choices that are universally inferior than others. When they differ, it&#x27;s because both sides are reasonable and have their proponents."
+  },
+  {
+    "id": 45325971,
+    "by": "pron",
+    "parent": 45324933,
+    "text": "&gt; hardly questionable its adoption in the industry at scale.<p>Really? It&#x27;s heavily marketed, yet after <i>10+ years</i> it&#x27;s struggling to achieve even a 2% market penetration. I mean, I don&#x27;t think anyone sees it as the next Fortran, C, C++, Java, Python, JS, TS, C#, Ruby, or PHP, but even Go&#x27;s adoption is much higher. The numbers still look more &quot;let&#x27;s give it a shot&quot; than &quot;this is the future&quot;, and at its rather advanced age, that looks questionable to me. Successful technological products, even programming languages, are usually adopted much more quickly.<p>&gt; Naturally someone might prove me wrong by releasing that one framework or product that makes writing Zig code unavoidable.<p>I have no idea if Zig will ever become successful. I mean, if Rust is struggling so badly despite the head start and hype, I don&#x27;t think the chances are great. It&#x27;s just that as someone who still does quite a bit of low-level programming every now and again, I find Zig a truly innovative and interesting language. I wouldn&#x27;t bet on it, or on Rust for that matter, from a pure, disinterested, market numbers or historical trends point of view."
+  },
+  {
+    "id": 45326980,
+    "by": "littlestymaar",
+    "parent": 45325621,
+    "text": "&gt; Oh, I didn&#x27;t mean to touch a sore spot<p>There&#x27;s no sore spot, though you definitely tried to find one to touch, or at least that&#x27;s the only way I can rationaly explain your obsession with posting troll comments in every Rust threads for years. Which ends up getting annoying even if every single comment misses the mark.<p>&gt; 10+-year-old language with less than 2% market penetration is unlikely<p>You seem to fail to realize that there&#x27;s very little market for unmanaged languages at all. I don&#x27;t think C or C++ have more than a single digit market share percentage each in 2025 either.<p>For most programming tasks, JavaScript and PHP are good enough and there&#x27;s no way you&#x27;re going to use Rust (or even Java) for those.<p>&gt; I wonder what someone who reads the numbers as &quot;Rust pretty much won&quot; would make of, say, Go&#x27;s success, that is, at best, moderate but disappointing; still well behind Ruby<p>Go&#x27;s success is very solid compared to pretty much every language invented in the 21th century, but ultimately it fights in the same category as the mainstream giants so it&#x27;s hard (read: impossible) to really become dominant.<p>Rust on the other hand is targeting a much narrower niche where the competition has been crippled by security vulnerabilities and poor developer experience, but also has much stricter performance characteristics, which served as a moat for a while.<p>For its niche, Rust has definitely won the status of \u201cit&#x27;s the future and we must use it as much as we can from now on\u201d (though for its niche, the code tends to live much longer than for the disposable \u201capp\u201d code, so Rust isn&#x27;t going to replace the existing C or C++ this decade or the next, and that&#x27;s fine).<p>&gt; BTW, I spend longer on sillier. Years ago, my therapist suggested spending my downtime online activity on low-stake matters<p>Weird flex but OK."
+  },
+  {
+    "id": 45330455,
+    "by": "Intermernet",
+    "parent": 45320753,
+    "text": "You literally just told me I don&#x27;t have the authority to define something, then you went on to define it as being accepted by &quot;all people&quot;. Isn&#x27;t that a bit of a double standard?"
+  },
+  {
+    "id": 45336530,
+    "by": "igouy",
+    "parent": 45318205,
+    "text": "Rust versus C clang :-)<p><a href=\"https:&#x2F;&#x2F;benchmarksgame-team.pages.debian.net&#x2F;benchmarksgame&#x2F;fastest&#x2F;rust.html\" rel=\"nofollow\">https:&#x2F;&#x2F;benchmarksgame-team.pages.debian.net&#x2F;benchmarksgame&#x2F;...</a>"
+  },
+  {
+    "id": 45330495,
+    "by": "Intermernet",
+    "parent": 45324238,
+    "text": "Yes, I understand, I&#x27;m saying that they don&#x27;t, except in second order effect, count as collaboration. That&#x27;s it. That&#x27;s the whole point."
+  },
+  {
+    "id": 45333617,
+    "by": "surajrmal",
+    "parent": 45325971,
+    "text": "I&#x27;ve seen rust enter every major c++ codebase I&#x27;ve worked on in the last few years. The major thing slowing adoption is the lack of good interop with c++, and general dirth of greenfield projects that can afford to ignore existing c++ ecosystem of internal libraries. Hiring for rust skills is also a challenge. But still adoption presses on. I see a hockey stick curve still approaching."
+  },
+  {
+    "id": 45330474,
+    "by": "Intermernet",
+    "parent": 45320763,
+    "text": "You seem to be reading a lot into my replies that isn&#x27;t there. I&#x27;m not sure why you&#x27;re so offended. At no point have either of us actually addressed the grievances of the blog post&#x27;s author. That&#x27;s one of the many reasons they weren&#x27;t the best option. It&#x27;s like you feel I&#x27;m attacking your right to complain about things. I&#x27;m not. Complain away, it&#x27;s healthy, but there are better ways to communicate with the people who can actually address the problem."
+  },
+  {
+    "id": 45327027,
+    "by": "pclmulqdq",
+    "parent": 45321802,
+    "text": "I said &quot;every time I try it&quot; and I said &quot;idiomatic Rust.&quot; The fast rust implementations are consistently starred there, indicating use of hand SIMD or unsafe or others. If you read them, they are not very idiomatic.<p>Also note that 3 of 4 comparisons in favor of Rust are marked &quot;contentious&quot; for using different algorithms with different limitations - they are not equivalents. The last one is k-nucleotide, which is a very algorithmically heavy problem where nobody has given optimized C and Rust has won at producing a decently optimized thing quickly. Note that the fastest C++ implementation handily beats Rust on that one, also."
+  },
+  {
+    "id": 45332369,
+    "by": "bnolsen",
+    "parent": 45321250,
+    "text": "People seem to underestimate this.  One of the first reasons I noticed about c++ was trying to figure out what functions were being called in an overly complex inheritance hierarchy. The next was from hidden behavior from seemingly benign looking sequence of statements. Both of these are a barrier of entry for bringing in new coders to a complex code base."
+  },
+  {
+    "id": 45327043,
+    "by": "pclmulqdq",
+    "parent": 45318205,
+    "text": "I also did not say &quot;always,&quot; I said &quot;every time I try it.&quot; The benchmarks game is a public example of this, with well-optimized implementations in all languages.<p>Why can&#x27;t people just take the win of &quot;10% slower, 10x easier&quot;?"
+  },
+  {
+    "id": 45326030,
+    "by": "pjmlp",
+    "parent": 45325971,
+    "text": "Yes really, I gave you the examples from industry giants.<p>Amazon, Microsoft and Google have no reason to drop Rust and replace ongoing efforts with Zig.<p>Nor Apple is going to drop Swift for Zig.<p>Vercel tooling is powered by Rust, as yet another example. Which is quite relevant given how many SaaS products only support Next.js on their SDKs.<p>Anyone using a recent Volvo car is also running Rust code on some canbus units, by the way."
+  },
+  {
+    "id": 45330730,
+    "by": "dminik",
+    "parent": 45327027,
+    "text": "I know what you said. I just don&#x27;t think it was interesting. If by idiomatic rust, you mean generic &quot;unoptimized&quot; Rust being slower than optimized C, then yeah. No shit.<p>On a similar note, I don&#x27;t think it&#x27;s worth talking about C as if the only C being written is highly optimized hand rolled assembly style of C. That&#x27;s one in a thousand projects.<p>Now, as for the benchmarks game, you mean 3 of 6 comparisons in favor of Rust. Rust is winning the benchmarks against C there.<p>I had a look and the top Rust and C entries are using the same pcre2 library in regex-redux. Same for pidigits where both libraries are using GMP.<p>The only library difference I can see is that the C entries are using OpenMP and both Rust entries are using Rayon. Now, you could claim that using Rayon gives Rust an unfair advantage. But an entirely userland library beating an industry standard with support from compilers is not a good look for C."
+  },
+  {
+    "id": 45332117,
+    "by": "simonask",
+    "parent": 45327027,
+    "text": "It just fundamentally does not make sense to compare languages by comparing codegen backends. GCC and LLVM do not produce the same code for equivalent code, especially when optimizations are applied. It&#x27;s an apples-to-oranges comparison.<p>Using Clang instead of GCC, the comparison becomes slightly better, at least for microbenchmarks that don&#x27;t rely too much on libraries.<p>These benchmarks are still useful from a practical viewpoint - answering the question &quot;what&#x27;s the expected performance bracket of using language X in real projects today&quot;. But it doesn&#x27;t say anything fundamental about the language design or even the quality of the implementation."
+  },
+  {
+    "id": 45337973,
+    "by": "pron",
+    "parent": 45326030,
+    "text": "I don&#x27;t know what you&#x27;re saying about Zig. I have no predictions about that language&#x27;s success, I just think its design is very interesting.<p>Those examples of Rust use by industry giants are a red flag for its adoption, because they look nothing like adoption by those very same companies of languages that ended up popular. Obviously, non-zero usage is something, but the rate and extent of adoption for what is now a fairly old language is exceptionally low <i>compared to languages that ended up making it</i>.<p>Such an unusually low adoption rate means that it will take another two decades for Rust to pick up even 50% of the low-level space (assuming some positive second derivative). It could be less if the rate suddenly picks up, but it could also be never if other competition enters the game in all that time. Nobody needs to drop Rust for competitors to have a chance because only a small minority is picking up Rust in the first place. On paper, Rust seemed to have better chances than Go in its market segment, but it&#x27;s doing worse.<p>Rust is now at the age Java was when JDK 6 came out, and it has maybe 1-2% of the market and 5-10% of the low-level segment. That is not where Rust&#x27;s believers expected or hoped it would be at this age. Could it somehow succeed in a way that&#x27;s different from all successful languages before it? That&#x27;s certainly a possibility, but I don&#x27;t see any indication for why anyone should <i>bet</i> on that unusual thing happening."
+  },
+  {
+    "id": 45327553,
+    "by": "pron",
+    "parent": 45326980,
+    "text": "Ten years in, Rust jobs are barely 10% of C or C++ jobs, if that. In any market segment, that is not the kind of adoption that successful products usually display.<p>Judging from the emotion in your comment, I sense that I did touch a nerve, and I&#x27;m sorry. As a programming language&#x2F;platform professional, I&#x27;m obviously interested in both language design and market adoption, and I share some of my personal perspectives. That Rust&#x27;s adoption is significantly lower than that of programming languages that become dominant - in any market slice - is not something I thought is controversial, regardless of one&#x27;s like or dislike of the language. But I know that some programmers make their programming language preference a part of their identity, and react emotionally to analyses or opinions they don&#x27;t like.<p>It&#x27;s normal to disagree, as experts often do, but once it gets emotional, perhaps it&#x27;s best to turn away. So I apologise for causing you discomfort, and perhaps if you find my comments too distressing, just skip them and move on. Getting stressed about things like this is not worth it."
+  },
+  {
+    "id": 45330556,
+    "by": "littlestymaar",
+    "parent": 45327553,
+    "text": "&gt; Ten years in, Rust jobs are barely 10% of C or C++ jobs, if that. In any market segment, that is not the kind of adoption that successful products usually display.<p>Says who? As I said above neither C or C++ aren&#x27;t going anywhere in the near future, and we&#x27;re talking about a programming niche where there&#x27;s little new code compared to the existing base.<p>The fact is that most people on this planet are using an OS or a web browser that has started migrating security sensitive sections to Rust. That Rust is now part of the standard CompSci curriculum in many parts of the world. And that it&#x27;s the go-to language for new low-level&#x2F;performance sensitive projects.<p>But of course it&#x27;s never going to be enough to convince the perennial naysayers.<p>&gt; Judging from the emotion in your comment, I sense that I did touch a nerve<p>Sorry for you, but you did not manage that.<p>&gt; and I&#x27;m sorry<p>We both know that you aren&#x27;t, I know you&#x27;re a troll and a flamebaiter, people like you thrive by the idea of enraging your interlocutor.<p>On the other side, I&#x27;m just glad I exposed your hypocrisy. Looks like pretending you were \u201cpro-Rust\u201d was too hard to maintain for an extended period of time.<p>&gt; just skip them and move on. Getting stressed about things like this is not worth it.<p>Remember, you are the one with anger management issue under medical supervision, most people aren&#x27;t like that ;)."
+  }
+]

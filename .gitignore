@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+/tmp/
+ziglab_test_bin
+*.o
+*.obj
+.DS_Store
